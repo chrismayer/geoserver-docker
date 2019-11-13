@@ -7,6 +7,7 @@ EXTENSIONS_PATH=/opt/extensions/
 VT_PLUGIN_PATH=$EXTENSIONS_PATH"vectortiles"
 WPS_PLUGIN_PATH=$EXTENSIONS_PATH"wps"
 IMG_MOSAIC_PLUGIN_PATH=$EXTENSIONS_PATH"imagemosaic-jdbc"
+ORACLE_DS_PLUGIN_PATH=$EXTENSIONS_PATH"oracle"
 
 # VECTOR TILES
 if [ "$USE_VECTOR_TILES" == 1 ]; then
@@ -26,9 +27,16 @@ if [ "$USE_IMG_MOSAIC" == 1 ]; then
   ls -la $IMG_MOSAIC_PLUGIN_PATH
   cp $IMG_MOSAIC_PLUGIN_PATH/*.jar $CATALINA_HOME/webapps/geoserver/WEB-INF/lib/
 fi
+# ORACLE DATASTORE
+if [ "$USE_ORACLE_DS" == 1 ]; then
+  echo "Copy Oracle Datastore extension to our GeoServer lib directory";
+  ls -la $ORACLE_DS_PLUGIN_PATH
+  cp $ORACLE_DS_PLUGIN_PATH/*.jar $CATALINA_HOME/webapps/geoserver/WEB-INF/lib/
+fi
 
 # copy additional geoserver libs before starting the tomcat
 if [ -d "$ADDITIONAL_LIBS_DIR" ]; then
+    echo "Copy additional geoserver libs before starting the tomcat";
     cp $ADDITIONAL_LIBS_DIR/*.jar $CATALINA_HOME/webapps/geoserver/WEB-INF/lib/
 fi
 

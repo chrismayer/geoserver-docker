@@ -47,5 +47,7 @@ if [ "$USE_CORS" == 1 ]; then
   cp /opt/web-cors-enabled.xml $CATALINA_HOME/webapps/geoserver/WEB-INF/web.xml
 fi
 
+sed -i 's/port="8080"/port="8081"/' $CATALINA_HOME/conf/server.xml
+
 # start the tomcat
 $CATALINA_HOME/bin/catalina.sh run
